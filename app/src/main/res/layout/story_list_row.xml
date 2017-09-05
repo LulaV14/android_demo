@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingBottom="@dimen/padding_list_row"
+    android:paddingLeft="?listPreferredItemPaddingLeft"
+    android:paddingRight="?listPreferredItemPaddingRight"
+    android:paddingTop="@dimen/padding_list_row">
+
+    <LinearLayout
+        android:id="@+id/main_story_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="@dimen/padding_list_row">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_author"/>
+
+            <TextView
+                android:id="@+id/created_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_author"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/swipe_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_swipe_delete"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_swipe_delete"
+        android:visibility="gone"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_label"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_delete"/>
+
+        <TextView
+            android:id="@+id/tvUndo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="5dp"
+            android:text="@string/undo_label"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_undo"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
