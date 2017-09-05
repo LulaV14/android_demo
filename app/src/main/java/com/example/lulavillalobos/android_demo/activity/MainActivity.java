@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.example.lulavillalobos.android_demo.R;
 import com.example.lulavillalobos.android_demo.adapter.StoriesAdapter;
+import com.example.lulavillalobos.android_demo.helper.DatabaseHandler;
 import com.example.lulavillalobos.android_demo.model.Story;
 import com.example.lulavillalobos.android_demo.model.StoryList;
 import com.example.lulavillalobos.android_demo.network.ApiClient;
 import com.example.lulavillalobos.android_demo.network.ApiInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,10 +40,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     public ColorDrawable background = new ColorDrawable();
 
+    DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DatabaseHandler(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
@@ -61,8 +67,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
-
-        //TODO testing code
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(createHelperCallback());
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
@@ -108,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void deleteStory(final int position) {
+        db.deleteStory(stories.get(position));
         stories.remove(position);
         adapter.notifyItemRemoved(position);
     }
@@ -125,12 +130,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         call.enqueue(new Callback<StoryList>() {
             @Override
             public void onResponse(Call<StoryList> call, Response<StoryList> response) {
+                //save stories to db
+                db.addStories(response.body().getStories());
+
                 //clear the stories
                 stories.clear();
 
-                //add all stories
-                List<Story> list = response.body().getStories();
-                stories.addAll(list);
+                //add all stories from db to not show the deleted ones
+                //and sort stories to show in date order
+                stories.addAll(db.getUndeletedStories());
+                Collections.sort(stories, Collections.<Story>reverseOrder());
 
                 adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
@@ -138,8 +147,17 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             @Override
             public void onFailure(Call<StoryList> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Unable to fetch json: " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Unable to fetch stories from server... fetching locally",
+                        Toast.LENGTH_SHORT).show();
+
+                //get all stories from db
+                stories.clear();
+                stories.addAll(db.getUndeletedStories());
+
+                //sort stories to show in date order
+                Collections.sort(stories, Collections.<Story>reverseOrder());
+
+                adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

@@ -50,38 +50,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/swipe_layout_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bg_swipe_delete"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_swipe_delete"
-        android:visibility="gone"
-        android:weightSum="3">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_label"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_delete"/>
-
-        <TextView
-            android:id="@+id/tvUndo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:paddingBottom="5dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="5dp"
-            android:text="@string/undo_label"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_undo"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
 </RelativeLayout>
