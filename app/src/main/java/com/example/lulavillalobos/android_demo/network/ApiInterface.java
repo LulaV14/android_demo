@@ -1,10 +1,6 @@
 package com.example.lulavillalobos.android_demo.network;
 
-import com.example.lulavillalobos.android_demo.model.Story;
 import com.example.lulavillalobos.android_demo.model.StoryList;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 

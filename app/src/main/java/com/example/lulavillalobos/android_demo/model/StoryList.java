@@ -2,7 +2,6 @@ package com.example.lulavillalobos.android_demo.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
