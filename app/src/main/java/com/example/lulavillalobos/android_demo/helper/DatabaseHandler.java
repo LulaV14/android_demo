@@ -62,6 +62,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
             story.setStoryTitle(story.getTitle());
 
+        if(story.getStoryUrl() != null)
+            story.setUrl(story.getStoryUrl());
+        else
+            story.setStoryUrl(story.getUrl());
+
         ContentValues values = new ContentValues();
         values.put(KEY_STORY_ID, story.getId());
         values.put(KEY_STORY_TITLE, story.getTitle());
@@ -185,6 +190,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 story.setTitle(cursor.getString(1));
                 story.setStoryTitle(cursor.getString(1));
                 story.setUrl(cursor.getString(2));
+                story.setStoryUrl(cursor.getString(2));
                 story.setAuthor(cursor.getString(3));
                 story.setCreatedAt(cursor.getString(4));
                 story.setDeleted(cursor.getInt(5));

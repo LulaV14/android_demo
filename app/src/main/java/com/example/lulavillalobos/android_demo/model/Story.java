@@ -15,6 +15,7 @@ public class Story implements  Comparable<Story> {
     private String story_title;
     private String title;
     private String story_url;
+    private String url;
     private String created_at;
     private String author;
     private int deleted;
@@ -23,6 +24,7 @@ public class Story implements  Comparable<Story> {
         this.story_id = story_id;
         this.title = title;
         this.story_title = title;
+        this.url = story_url;
         this.story_url = story_url;
         this.author = author;
         this.created_at = created_at;
@@ -57,12 +59,20 @@ public class Story implements  Comparable<Story> {
         this.title = title;
     }
 
-    public String getUrl() {
+    public String getStoryUrl() {
         return story_url;
     }
 
-    public void setUrl(String story_url) {
+    public void setStoryUrl(String story_url) {
         this.story_url = story_url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getCreatedAt() {

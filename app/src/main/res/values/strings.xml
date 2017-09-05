@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android_demo</string>
+    <string name="app_name">Android Stories</string>
     <string name="delete_label">delete</string>
     <string name="undo_label">undo</string>
 </resources>
