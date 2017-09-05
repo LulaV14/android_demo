@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lulavillalobos.android_demo.R;
 import com.example.lulavillalobos.android_demo.activity.WebStoryActivity;
@@ -47,9 +48,19 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.ViewHold
         public void onClick(View view) {
             Story story = stories.get(getAdapterPosition());
 
-            Intent intent = new Intent(context, WebStoryActivity.class);
-            intent.putExtra(EXTRA_STORY_URL, story.getUrl());
-            context.startActivity(intent);
+            String urlToSend = "";
+            if(story.getStoryUrl() != null)
+                urlToSend = story.getStoryUrl();
+            else
+                urlToSend = story.getUrl();
+
+            if(urlToSend != "" && urlToSend != null) {
+                Intent intent = new Intent(context, WebStoryActivity.class);
+                intent.putExtra(EXTRA_STORY_URL, urlToSend);
+                context.startActivity(intent);
+            } else {
+                Toast.makeText(context, "No URL found", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
