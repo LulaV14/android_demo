@@ -23,6 +23,15 @@ The WebViewActivity is pretty simple, it has a webview, and I added a progressba
 I'm planning to add tests to all functionality of the app, right now given the time I couldn't complete that.
 
 
+#### Video Walkthrough 
+
+Here's a little walkthrough of the implemented work:
+
+<img src='https://s3-us-west-1.amazonaws.com/examplelulav14/android_demo_app2.gif' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+
 Will keep updating.
 
 
