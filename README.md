@@ -1,4 +1,5 @@
 # android_demo
+Example
 This is a demo for a simple Android app.
 
 The app has two views, a Main Activity and WebView for details.
