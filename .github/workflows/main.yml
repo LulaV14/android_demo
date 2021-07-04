@@ -36,3 +36,23 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+      # Example of JavaScript script
+      - uses: actions/github-script@0.8.0
+        name: Not an Action
+        if: github.event.label.name == 'nocode' || github.event.label.name == 'not-an-action'
+        with:
+          script: |
+          await github.issues.createComment({
+            owner: "LulaV14",
+            repo: "android_demo",
+            issue_number: context.payload.number,
+            body: "Example, this is not an action"
+          });
+          
+          await github.pulls.update({
+            owner: "LulaV14",
+            repo: "android_demo",
+            pull_number: context.payload.number,
+            state: "closed"
+          });
