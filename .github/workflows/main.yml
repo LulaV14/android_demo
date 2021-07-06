@@ -1,51 +1,75 @@
-# This is a basic workflow to help you get started with Actions
+name: Review with labels
 
-name: CI
-
-# Controls when the workflow will run
 on:
   pull_request:
-    branches: [ master ]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    types: [labeled]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Example Not An Action
-        uses: actions/github-script@v4.0.0
-        with:
-          debug: github.event.label.name
-          script: |
-            await github.issues.createComment({
-                owner: "LulaV14",
-                repo: "android_demo",
-                issue_number: context.payload.number,
-                body: "Example Comment!"
-              });
-
-    # Example of JavaScript script
-      - uses: actions/github-script@4.0.0
+      - uses: actions/github-script@0.8.0
         name: Not an Action
         if: github.event.label.name == 'nocode' || github.event.label.name == 'not-an-action'
         with:
           script: |
             await github.issues.createComment({
-              owner: "LulaV14",
-              repo: "android_demo",
+              owner: "github-hackathon",
+              repo: "hackathon",
               issue_number: context.payload.number,
-              body: "Example, this is not an action"
+              body: "Submission is not a usable GitHub Action"
             });
 
             await github.pulls.update({
-              owner: "LulaV14",
-              repo: "android_demo",
+              owner: "github-hackathon",
+              repo: "hackathon",
+              pull_number: context.payload.number,
+              state: "closed"
+            });
+      - uses: actions/github-script@0.8.0
+        name: Featured
+        if: github.event.label.name == 'featured' || github.event.label.name == 'good'
+        with:
+          script: |
+            await github.pulls.merge({
+              owner: "github-hackathon",
+              repo: "hackathon",
+              pull_number: context.payload.number,
+            });
+      - uses: actions/github-script@0.8.0
+        name: Fork
+        if: github.event.label.name == 'fork'
+        with:
+          script: |
+            await github.issues.createComment({
+              owner: "github-hackathon",
+              repo: "hackathon",
+              issue_number: context.payload.number,
+              body: "Submission is a fork and does not represent the submitter as the author."
+            });
+
+            await github.pulls.update({
+              owner: "github-hackathon",
+              repo: "hackathon",
+              pull_number: context.payload.number,
+              state: "closed"
+            });
+      - uses: actions/github-script@0.8.0
+        name: Ended
+        if: github.event.label.name == 'late'
+        with:
+          script: |
+            await github.issues.createComment({
+              owner: "github-hackathon",
+              repo: "hackathon",
+              issue_number: context.payload.number,
+              body: "Submission received after the Hackathon has ended."
+            });
+
+            await github.pulls.update({
+              owner: "github-hackathon",
+              repo: "hackathon",
               pull_number: context.payload.number,
               state: "closed"
             });
