@@ -18,8 +18,20 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Example Not An Action
+        uses: actions/github-script@v4.0.2
+        with:
+          debug: github.event.label.name
+          script: |
+            await github.issues.createComment({
+                owner: "LulaV14",
+                repo: "android_demo",
+                issue_number: context.payload.number,
+                body: "Example Comment!"
+              });
+
     # Example of JavaScript script
-      - uses: actions/github-script@0.8.0
+      - uses: actions/github-script@4.0.2
         name: Not an Action
         if: github.event.label.name == 'nocode' || github.event.label.name == 'not-an-action'
         with:
