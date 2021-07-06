@@ -31,7 +31,7 @@ jobs:
               });
 
     # Example of JavaScript script
-      - uses: actions/github-script@4.0.2
+      - uses: actions/github-script@4.0.0
         name: Not an Action
         if: github.event.label.name == 'nocode' || github.event.label.name == 'not-an-action'
         with:
