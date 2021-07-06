@@ -19,7 +19,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Example Not An Action
-        uses: actions/github-script@v4.0.2
+        uses: actions/github-script@v4.0.0
         with:
           debug: github.event.label.name
           script: |
