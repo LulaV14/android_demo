@@ -23,8 +23,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Example of JavaScript script
+      # Example of JavaScript script
       - uses: actions/github-script@0.8.0
+
+      # Runs a JavaScript code that will create a comment and close a PR if a label is created with 'nocode' or 'not-an-action'
       - name: Not an Action
         if: github.event.label.name == 'nocode' || github.event.label.name == 'not-an-action'
         with:
